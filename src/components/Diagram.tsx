@@ -1,19 +1,19 @@
-import { Chord, Barre } from "../types"
-export default function ChordDiagram({
-  frets,
-  barres,
-  baseFret = 1,
-}: Chord) {
-  // Dimensions and Spacing
-  const svgWidth = 120
-  const svgHeight = 180
-  const numFrets = 4
+import { memo } from 'react'
+import { Chord, Barre } from '../types'
+
+function ChordDiagram(
+  { key, suffix, frets, barres = [], baseFret = 1 }: Chord,
+  color: string = '#fff',
+  svgWidth: number = 120,
+  svgHeight: number = 180,
+  numFrets: number = 4,
+  showName: boolean = false
+) {
+  const name = key + suffix
   const numStrings = 6
 
   const stringSpacing = svgWidth / (numStrings - 1) - 4
   const fretSpacing = (svgHeight - 40) / (numFrets + 1)
-
-  const color = '#ffffff'
 
   return (
     <svg
@@ -21,9 +21,10 @@ export default function ChordDiagram({
       width='100%'
       height='100%'
       preserveAspectRatio='xMidYMid meet'
-      aria-label={`${''} chord diagram`}
+      aria-label={`${name} chord diagram`}
+      className='chord-diagram-svg'
     >
-      {/* Chord name
+      {/*Chord name*/}
       <text
         x='50%'
         y='12'
@@ -32,40 +33,44 @@ export default function ChordDiagram({
         textAnchor='middle'
         fill={color}
       >
-        {name || ''}
-      </text> */}
+        {showName && name}
+      </text>
 
       {/* Strings */}
-      {[...Array(numStrings)].map((_, i) => {
-        let x = i * stringSpacing + 10
+      <g className='strings'>
+        {[...Array(numStrings)].map((_, i) => {
+          let x = i * stringSpacing + 10
 
-        return (
-          <line
-            key={`string-${i}`}
-            x1={x}
-            y1={40}
-            x2={x}
-            y2={svgHeight - 28}
-            stroke={color}
-            strokeWidth='1'
-          />
-        )
-      })}
+          return (
+            <line
+              key={`string-${i}`}
+              x1={x}
+              y1={40}
+              x2={x}
+              y2={svgHeight - 28}
+              stroke={color}
+              strokeWidth='1'
+            />
+          )
+        })}
+      </g>
 
       {/* Frets */}
-      {[...Array(numFrets + 1)].map((_, i) => {
-        return (
-          <line
-            key={`fret-${i}`}
-            x1='10'
-            y1={i * fretSpacing + 40}
-            x2={svgWidth - 10}
-            y2={i * fretSpacing + 40}
-            stroke={color}
-            strokeWidth={i === 0 && baseFret === 1 ? 3 : 1}
-          />
-        )
-      })}
+      <g className='strings'>
+        {[...Array(numFrets + 1)].map((_, i) => {
+          return (
+            <line
+              key={`fret-${i}`}
+              x1='10'
+              y1={i * fretSpacing + 40}
+              x2={svgWidth - 10}
+              y2={i * fretSpacing + 40}
+              stroke={color}
+              strokeWidth={i === 0 && baseFret === 1 ? 3 : 1}
+            />
+          )
+        })}
+      </g>
 
       {/* Starting Fret Number */}
       {baseFret > 1 && (
@@ -122,9 +127,7 @@ export default function ChordDiagram({
           (!barres ||
             !barres.some(
               (barre: Barre) =>
-                barre.fret === fret &&
-                i + 1 >= barre.from &&
-                i + 1 <= barre.to
+                barre.fret === fret && i + 1 >= barre.from && i + 1 <= barre.to
             ))
         ) {
           const x = i * stringSpacing + 10
@@ -166,3 +169,5 @@ export default function ChordDiagram({
     </svg>
   )
 }
+
+export default memo(ChordDiagram)
