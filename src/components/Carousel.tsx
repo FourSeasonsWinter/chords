@@ -38,6 +38,7 @@ export default function Carousel({
     >
       {chords.map(chord => (
         <SwiperSlide key={chord.id} className='chord-swiper-slide'>
+          <h2>{chord.key}{chord.suffix}</h2>
           <ChordDiagram {...chord} />
         </SwiperSlide>
       ))}

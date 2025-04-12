@@ -2,14 +2,13 @@ import { memo } from 'react'
 import { Chord, Barre } from '../types'
 
 function ChordDiagram(
-  { key, suffix, frets, barres = [], baseFret = 1 }: Chord,
+  { frets, barres = [], baseFret = 1 }: Chord,
   color: string = '#fff',
   svgWidth: number = 120,
   svgHeight: number = 180,
   numFrets: number = 4,
   showName: boolean = false
 ) {
-  const name = key + suffix
   const numStrings = 6
 
   const stringSpacing = svgWidth / (numStrings - 1) - 4
@@ -33,7 +32,7 @@ function ChordDiagram(
         textAnchor='middle'
         fill={color}
       >
-        {showName && name}
+        {showName && ''}
       </text>
 
       {/* Strings */}
