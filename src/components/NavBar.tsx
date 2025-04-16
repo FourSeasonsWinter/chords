@@ -12,7 +12,7 @@ export default function NavBar() {
         <FaHome size={28} />
       </NavLink>
       <NavLink
-        to={'/collections'}
+        to={'/songs'}
         className={({ isActive }) => (isActive ? 'link active' : 'link')}
       >
         <HiCollection size={28} />

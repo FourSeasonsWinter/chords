@@ -1,6 +1,6 @@
 import { Chord } from '../types'
 import ChordDiagram from './Diagram'
-import { Swiper, SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 
 interface Props {
@@ -30,9 +30,6 @@ export default function Carousel({
         if (onSlideChange) {
           onSlideChange(swiperInstance.activeIndex)
         }
-      }}
-      onSwiper={(swiperInstance) => {
-        // store the swiper instance with useRef
       }}
       className='chord-swiper-container'
     >

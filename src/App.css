@@ -14,7 +14,8 @@
 .search {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  margin-top: 30px;
+  margin-bottom: 40px;
   gap: 10px;
 }
 
@@ -32,6 +33,34 @@
   border-radius: 5px;
   width: 50px;
   background: #f1f1f1;
+}
+
+/* Chords Component */
+.controls {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 1rem 1rem;
+}
+
+.controls button {
+  background: transparent;
+  color: white;
+  border: none;
+}
+
+#add-song-button {
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: 50%;
+  background: white;
+  color: #1f1f1f;
+}
+
+/* Home Page */
+.no-chords {
+  text-align: center;
 }
 
 /* SwiperJS */
@@ -58,10 +87,10 @@
 }
 
 .chord-swiper-slide {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .chord-swiper-slide h2 {
@@ -70,12 +99,12 @@
 }
 
 .carousel-container::-webkit-scrollbar {
-    display: none;
+  display: none;
 }
 
 .carousel-container {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Nav Bar */
@@ -106,4 +135,91 @@ nav .link.active {
 
 nav .link:active {
   background: transparent;
+}
+
+/* Song List Page */
+.list-page {
+  position: relative;
+}
+
+.songs-title {
+  padding: 1rem;
+}
+
+.song-list {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.song-list-item {
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  padding: 16px;
+}
+
+.add-button {
+  padding: 12px;
+  margin: 0 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* Song Detail Page */
+.not-found {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.not-found a {
+  text-decoration: underline;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.top-bar button {
+  background: transparent;
+  border: none;
+  color: #f1f1f1;
+}
+
+.details-title {
+  padding: 1rem;
+}
+
+.diagrams {
+  display: flex;
+  justify-content: center;
+}
+
+.diagram {
+  max-width: 100px;
+  min-width: 100px;
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.diagram span {
+  position: absolute;
+  top: -10px;
+}
+
+.add-chords-label {
+  text-align: center;
+  margin-top: 60px;
 }

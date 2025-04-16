@@ -1,14 +1,25 @@
 import { memo } from 'react'
 import { Chord, Barre } from '../types'
 
-function ChordDiagram(
-  { frets, barres = [], baseFret = 1 }: Chord,
-  color: string = '#fff',
-  svgWidth: number = 120,
-  svgHeight: number = 180,
-  numFrets: number = 4,
-  showName: boolean = false
-) {
+interface Props extends Chord {
+  color?: string
+  svg?: number
+  svgWidth?: number
+  svgHeight?: number
+  numFrets?: number
+  showName?: boolean
+}
+
+function ChordDiagram({
+  frets,
+  barres = [],
+  baseFret = 1,
+  color = '#fff',
+  svgWidth = 120,
+  svgHeight = 180,
+  numFrets = 4,
+  showName = false,
+}: Props) {
   const numStrings = 6
 
   const stringSpacing = svgWidth / (numStrings - 1) - 4
@@ -24,7 +35,7 @@ function ChordDiagram(
       className='chord-diagram-svg'
     >
       {/*Chord name*/}
-      <text
+      {/* <text
         x='50%'
         y='12'
         fontSize='16'
@@ -33,7 +44,7 @@ function ChordDiagram(
         fill={color}
       >
         {showName && ''}
-      </text>
+      </text> */}
 
       {/* Strings */}
       <g className='strings'>

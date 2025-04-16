@@ -10,10 +10,10 @@ export default function App() {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path='/collections' element={<CollectionListPage />} />
+          <Route path='/songs' element={<CollectionListPage />} />
         </Route>
         <Route
-          path='/collections/:collectionId'
+          path='/songs/:songId'
           element={<CollectionDetailPage />}
         />
       </Routes>
