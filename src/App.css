@@ -133,7 +133,7 @@ nav .link:active {
   gap: 10px;
 }
 
-.song-list-item {
+.song-list-item, .add-button {
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 16px;

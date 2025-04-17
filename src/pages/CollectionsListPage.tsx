@@ -1,15 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
 import { deleteSong, getSavedSongs, saveSong } from '../actions/songs'
 import { Song } from '../types'
 import { Link } from 'react-router-dom'
 import { IoMdAdd } from 'react-icons/io'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, PanInfo } from 'framer-motion'
 
 export default function CollectionListPage() {
   const [songs, setSongs] = useState<Song[]>(getSavedSongs())
   const [showConfirmation, setShowConfirmation] = useState<boolean>(false)
   const [itemToDelete, setItemToDelete] = useState<Song | null>(null)
-  const holdTimeout = useRef<number>(null)
 
   function handleAddSong() {
     const newSong: Song = {
@@ -22,19 +21,15 @@ export default function CollectionListPage() {
     setSongs([...songs, newSong])
   }
 
-  function handleHoldStart(song: Song) {
-    if (holdTimeout.current) clearTimeout(holdTimeout.current)
-
-    holdTimeout.current = setTimeout(() => {
-      if (navigator && navigator.vibrate) navigator.vibrate(100)
-
-      setItemToDelete(song)
-      setShowConfirmation(true)
-    }, 500)
-  }
-
-  function handleHoldEnd() {
-    if (holdTimeout.current) clearTimeout(holdTimeout.current)
+  function handleDragEnd(
+    _: MouseEvent | TouchEvent | PointerEvent,
+    info: PanInfo,
+    item: Song
+  ) {
+    if (info.offset.x < -100 || info.offset.x > 100) {
+      setItemToDelete(item)
+      setTimeout(() => setShowConfirmation(true), 10)
+    }
   }
 
   function handleConfirmDelete() {
@@ -50,12 +45,6 @@ export default function CollectionListPage() {
     setItemToDelete(null)
   }
 
-  useEffect(() => {
-    return () => {
-      if (holdTimeout.current) clearTimeout(holdTimeout.current)
-    }
-  })
-
   return (
     <main className='song-list-page'>
       <h1 className='songs-title'>Songs</h1>
@@ -69,17 +58,17 @@ export default function CollectionListPage() {
                   <motion.li
                     key={song.id}
                     layout
+                    drag='x'
+                    dragConstraints={{ left: 0, right: 0 }}
+                    onDragEnd={(_, info) => handleDragEnd(_, info, song)}
                     initial={{ opacity: 0, y: -4 }}
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -4 }}
                   >
-                    <Link
-                      to={`/songs/${song.id}`}
-                      onTouchStart={() => handleHoldStart(song)}
-                      onTouchEnd={handleHoldEnd}
-                      onTouchCancel={handleHoldEnd}
-                    >
-                      <div className='song-list-item'>{song.title}</div>
+                    <Link to={`/songs/${song.id}`}>
+                      <div className='song-list-item'>
+                        {song.title}
+                      </div>
                     </Link>
                   </motion.li>
                 )
@@ -87,7 +76,7 @@ export default function CollectionListPage() {
             </AnimatePresence>
           </ol>
 
-          <div onClick={handleAddSong} className='song-list-item add-button'>
+          <div onClick={handleAddSong} className='add-button'>
             <IoMdAdd size={28} />
             new song
           </div>
