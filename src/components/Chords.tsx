@@ -3,12 +3,15 @@ import chordsData from '../data/guitar-chords.json'
 import Carousel from '../components/Carousel'
 import Search from '../components/Search'
 import { Chord } from '../types'
+import musicAnimation from '../animations/music.json'
+import Lottie from 'lottie-react'
 
 interface Props {
   onAddPress?: (chord: Chord) => void
+  showAnimation?: boolean
 }
 
-export default function Chords({ onAddPress }: Props) {
+export default function Chords({ onAddPress, showAnimation }: Props) {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [activeChordIndex, setActiveChordIndex] = useState<number>(0)
 
@@ -67,8 +70,10 @@ export default function Chords({ onAddPress }: Props) {
           )}
         </>
       ) : (
-        searchTerm.trim() && (
+        searchTerm.trim() ? (
           <p className='no-chords'>No chords found matching "{searchTerm}"</p>
+        ) : (
+          showAnimation && <Lottie animationData={musicAnimation} loop={true} />
         )
       )}
     </main>

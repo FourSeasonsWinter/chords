@@ -8,6 +8,7 @@ import Chords from '../components/Chords'
 import { FaArrowLeft } from 'react-icons/fa'
 import { MdEdit } from 'react-icons/md'
 import { IoClose } from 'react-icons/io5'
+import { AnimatePresence, motion } from 'framer-motion'
 
 export default function CollectionDetailPage() {
   const { songId } = useParams<{ songId: string }>()
@@ -72,7 +73,7 @@ export default function CollectionDetailPage() {
 
   function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {
     setTitle(e.target.value)
-    
+
     if (song) {
       song.title = e.target.value
       saveSong(song)
@@ -107,21 +108,27 @@ export default function CollectionDetailPage() {
 
       {chords.length > 0 ? (
         <ol className='diagrams'>
-          {chords.map((chord, index) => {
-            return (
-              <div
-                className='diagram'
-                onClick={() => handleDiagramClick(index)}
-                key={index}
-              >
-                <span>
-                  {chord.key}
-                  {chord.suffix}
-                </span>
-                <ChordDiagram {...chord} />
-              </div>
-            )
-          })}
+          <AnimatePresence>
+            {chords.map((chord, index) => {
+              return (
+                <motion.li
+                  key={index}
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.2 }}
+                  onClick={() => handleDiagramClick(index)}
+                  className='diagram'
+                >
+                  <span>
+                    {chord.key}
+                    {chord.suffix}
+                  </span>
+                  <ChordDiagram {...chord} />
+                </motion.li>
+              )
+            })}
+          </AnimatePresence>
         </ol>
       ) : (
         <>
@@ -130,14 +137,17 @@ export default function CollectionDetailPage() {
       )}
 
       {editMode && (
-        <div className='edit-mode-section'>
+        <motion.div
+          layout
+          className='edit-mode-section'
+        >
           <div id='label'>
             <p>click on a diagram to remove</p>
             <IoClose size={24} />
           </div>
           <hr />
           <Chords onAddPress={addChord} />
-        </div>
+        </motion.div>
       )}
     </>
   )
