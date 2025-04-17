@@ -7,7 +7,6 @@ interface Props extends Chord {
   svgWidth?: number
   svgHeight?: number
   numFrets?: number
-  showName?: boolean
 }
 
 function ChordDiagram({
@@ -18,7 +17,6 @@ function ChordDiagram({
   svgWidth = 120,
   svgHeight = 180,
   numFrets = 4,
-  showName = false,
 }: Props) {
   const numStrings = 6
 

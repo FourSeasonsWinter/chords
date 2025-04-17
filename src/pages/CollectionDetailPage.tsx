@@ -69,6 +69,11 @@ export default function CollectionDetailPage() {
     })
 
     setChords(updatedChords)
+    
+    if (song) {
+      song.chordIds = updatedChords.map(chord => chord.id)
+      saveSong(song)
+    }
   }
 
   function handleTitleChange(e: ChangeEvent<HTMLInputElement>) {

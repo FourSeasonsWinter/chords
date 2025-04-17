@@ -1,10 +1,10 @@
-import { ChangeEvent, useMemo, useState } from 'react'
+import React, { ChangeEvent, Suspense, useMemo, useState } from 'react'
 import chordsData from '../data/guitar-chords.json'
 import Carousel from '../components/Carousel'
 import Search from '../components/Search'
 import { Chord } from '../types'
-import musicAnimation from '../animations/music.json'
-import Lottie from 'lottie-react'
+
+const MusicAnimation = React.lazy(() => import('./MusicAnimation'))
 
 interface Props {
   onAddPress?: (chord: Chord) => void
@@ -73,7 +73,7 @@ export default function Chords({ onAddPress, showAnimation }: Props) {
         searchTerm.trim() ? (
           <p className='no-chords'>No chords found matching "{searchTerm}"</p>
         ) : (
-          showAnimation && <Lottie animationData={musicAnimation} loop={true} />
+          showAnimation && <Suspense><MusicAnimation /></Suspense>
         )
       )}
     </main>

@@ -1,7 +1,7 @@
 import { Chord } from '../types'
 import ChordDiagram from './Diagram'
 import { Swiper, SwiperSlide } from 'swiper/react'
-import 'swiper/css'
+import 'swiper/swiper-bundle.css'
 
 interface Props {
   chords: Chord[]
