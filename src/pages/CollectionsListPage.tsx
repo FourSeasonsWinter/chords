@@ -29,7 +29,7 @@ export default function CollectionListPage() {
 
       setItemToDelete(song)
       setShowConfirmation(true)
-    }, 700)
+    }, 500)
   }
 
   function handleHoldEnd() {
@@ -56,7 +56,7 @@ export default function CollectionListPage() {
   })
 
   return (
-    <>
+    <main className='song-list-page'>
       <h1 className='songs-title'>Songs</h1>
 
       {songs.length > 0 ? (
@@ -99,6 +99,6 @@ export default function CollectionListPage() {
       ) : (
         <h3>no songs yet</h3>
       )}
-    </>
+    </main>
   )
 }

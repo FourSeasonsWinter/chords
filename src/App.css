@@ -116,8 +116,9 @@ nav .link:active {
 }
 
 /* Song List Page */
-.list-page {
-  position: relative;
+.song-list-page {
+  max-height: 93vh;
+  overflow-y: scroll;
 }
 
 .songs-title {
@@ -266,7 +267,7 @@ nav .link:active {
 
 .add-chords-label {
   text-align: center;
-  margin: 60px 0;
+  margin: 10px 0;
 }
 
 .edit-mode-section {
