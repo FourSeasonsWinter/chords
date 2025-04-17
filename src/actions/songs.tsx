@@ -14,7 +14,25 @@ export function getSongById(songId: string) {
 
 export function saveSong(song: Song) {
   const collections: Song[] = getSavedSongs()
-  collections.push(song)
+  const alreadyExists = collections.findIndex(s => {
+    return s.id === song.id
+  })
+
+  if (alreadyExists != -1) {
+    collections[alreadyExists] = song
+  }
+  else {
+    collections.push(song)
+  }
 
   localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(collections))
+}
+
+export function deleteSong(songId: string) {
+  const collections: Song[] = getSavedSongs()
+  const newCollections: Song[] = collections.filter(song => {
+    return song.id != songId
+  })
+
+  localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newCollections))
 }

@@ -1,6 +1,6 @@
 import { Chord } from '../types'
 import ChordDiagram from './Diagram'
-import { Swiper, SwiperRef, SwiperSlide } from 'swiper/react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 
 interface Props {

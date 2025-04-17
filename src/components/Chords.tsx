@@ -3,9 +3,12 @@ import chordsData from '../data/guitar-chords.json'
 import Carousel from '../components/Carousel'
 import Search from '../components/Search'
 import { Chord } from '../types'
-import Controls from './Controls'
 
-export default function Chords() {
+interface Props {
+  onAddPress?: (chord: Chord) => void
+}
+
+export default function Chords({ onAddPress }: Props) {
   const [searchTerm, setSearchTerm] = useState<string>('')
   const [activeChordIndex, setActiveChordIndex] = useState<number>(0)
 
@@ -40,24 +43,33 @@ export default function Chords() {
     setActiveChordIndex(index)
   }
 
+  function handleAddPress() {
+    if (onAddPress)
+      onAddPress(diagramsForCarousel[activeChordIndex])
+  }
+
   return (
-    <main>
+    <main className='chords-component'>
       <Search searchTerm={searchTerm} onChange={handleInputChange} />
 
       {filteredChords.length > 0 ? (
-        <Carousel
-          chords={diagramsForCarousel}
-          onSlideChange={handleSlideChange}
-          initialSlide={activeChordIndex}
-        />
+        <>
+          <Carousel
+            chords={diagramsForCarousel}
+            onSlideChange={handleSlideChange}
+            initialSlide={activeChordIndex}
+          />
+
+          {onAddPress && (
+            <div className='simple-controls'>
+              <button onClick={handleAddPress}>add</button>
+            </div>
+          )}
+        </>
       ) : (
         searchTerm.trim() && (
           <p className='no-chords'>No chords found matching "{searchTerm}"</p>
         )
-      )}
-
-      {diagramsForCarousel[activeChordIndex] && (
-        <p>Active Chord: {diagramsForCarousel[activeChordIndex].id}</p>
       )}
     </main>
   )

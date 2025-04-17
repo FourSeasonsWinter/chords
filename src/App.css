@@ -1,6 +1,7 @@
 /* Menu Bar */
 .menu {
   padding: 10px;
+  margin-bottom: 3rem;
   display: flex;
   justify-content: space-between;
 }
@@ -14,8 +15,6 @@
 .search {
   display: flex;
   justify-content: center;
-  margin-top: 30px;
-  margin-bottom: 40px;
   gap: 10px;
 }
 
@@ -36,26 +35,11 @@
 }
 
 /* Chords Component */
-.controls {
+.chords-component {
   display: flex;
-  justify-content: space-around;
-  align-items: center;
-  margin: 1rem 1rem;
-}
-
-.controls button {
-  background: transparent;
-  color: white;
-  border: none;
-}
-
-#add-song-button {
-  width: 56px;
-  height: 56px;
-  border: none;
-  border-radius: 50%;
-  background: white;
-  color: #1f1f1f;
+  flex-direction: column;
+  gap: 4rem;
+  position: relative;
 }
 
 /* Home Page */
@@ -64,12 +48,6 @@
 }
 
 /* SwiperJS */
-.chord-swiper-container {
-  width: 100%;
-  height: 350px;
-  padding: 20px 0;
-}
-
 .chord-swiper-slide {
   max-width: 190px;
   height: 100%;
@@ -95,7 +73,7 @@
 
 .chord-swiper-slide h2 {
   position: absolute;
-  top: 0;
+  top: -6px;
 }
 
 .carousel-container::-webkit-scrollbar {
@@ -168,6 +146,50 @@ nav .link:active {
   gap: 4px;
 }
 
+.confirmation-popup {
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.confirmation-popup #box {
+  width: 300px;
+  height: 100px;
+  background: black;
+  border: 1px solid #ccc2;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: .6rem;
+}
+
+.confirmation-popup #buttons {
+  display: flex;
+  justify-content: end;
+  gap: 1.4rem;
+}
+
+.confirmation-popup button {
+  background-color: transparent;
+  color: white;
+  border: none;
+}
+
+.confirmation-popup #delete {
+  color: red;
+}
+
+.confirmation-popup h3 {
+  padding: .6rem;
+}
+
 /* Song Detail Page */
 .not-found {
   height: 100vh;
@@ -194,19 +216,42 @@ nav .link:active {
   color: #f1f1f1;
 }
 
+.top-bar .edit-mode-button {
+  background-color: white;
+  color: black;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+}
+
 .details-title {
   padding: 1rem;
+  margin-bottom: 2rem;
+}
+
+.details-title-input {
+  max-width: 80vw;
+  font-size: 30px;
+  font-weight: bolder;
+  margin: 0 1rem;
+  margin-bottom: 3rem;
+  margin-top: 2rem;
+  background: transparent;
+  color: white;
+  border: none;
 }
 
 .diagrams {
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  transition: all .3s ease-in-out;
 }
 
 .diagram {
   max-width: 100px;
   min-width: 100px;
-  margin-top: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -221,5 +266,38 @@ nav .link:active {
 
 .add-chords-label {
   text-align: center;
-  margin-top: 60px;
+  margin: 60px 0;
+}
+
+.edit-mode-section {
+  margin-top: 2rem;
+  margin-bottom: 8rem;
+}
+
+.edit-mode-section #label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: .4;
+  margin-top: 3rem;
+}
+
+.edit-mode-section hr {
+  margin: .8rem 1rem;
+  margin-bottom: 3rem;
+  opacity: .2;
+}
+
+/* Simple Controls */
+.simple-controls {
+  position: absolute;
+  bottom: -80px;
+  right: 50%;
+  translate: 50%;
+  padding: 1rem;
+}
+
+.simple-controls button {
+  width: 100px;
+  height: 40px;
 }
