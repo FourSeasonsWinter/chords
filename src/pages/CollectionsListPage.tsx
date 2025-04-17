@@ -114,7 +114,13 @@ export default function CollectionListPage() {
           )}
         </>
       ) : (
-        <h3>no songs yet</h3>
+        <>
+          <h3 className='empty-list-label'>no songs yet</h3>
+          <div onClick={handleAddSong} className='song-list-item add-button'>
+            <IoMdAdd size={28} />
+            new song
+          </div>
+        </>
       )}
     </main>
   )
